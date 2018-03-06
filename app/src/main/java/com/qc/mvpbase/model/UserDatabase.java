@@ -10,7 +10,7 @@ import android.support.annotation.NonNull;
  * Created by mohammadnaz on 3/3/18.
  */
 
-@Database(entities = {UserEntity.class, TransferEntity.class}, version = 2, exportSchema = false)
+@Database(entities = {UserEntity.class, TransferEntity.class}, version = 1, exportSchema = false)
 public abstract class UserDatabase extends RoomDatabase {
 
     private static final String DB_NAME = "User.db";
@@ -25,7 +25,7 @@ public abstract class UserDatabase extends RoomDatabase {
 
     @NonNull
     private static UserDatabase create(final Context context) {
-        return Room.databaseBuilder(context, UserDatabase.class, DB_NAME).fallbackToDestructiveMigration()
+        return Room.databaseBuilder(context, UserDatabase.class, DB_NAME)
                 .build();
 
     }
