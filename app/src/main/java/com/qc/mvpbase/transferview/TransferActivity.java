@@ -4,19 +4,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
 import com.qc.mvpbase.R;
-import com.qc.mvpbase.mainview.MainPresenter;
-import com.qc.mvpbase.mainview.UserAdapter;
-import com.qc.mvpbase.model.TransferEntity;
 
-import java.util.List;
 
 public class TransferActivity extends AppCompatActivity
-        implements TransferContract.transferView{
+        implements TransferContract.transferView {
 
     private RecyclerView recyclerView;
     private TransferPresenter transferPresenter;
@@ -34,29 +29,25 @@ public class TransferActivity extends AppCompatActivity
         recyclerView = findViewById(R.id.tRV);
         linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
-        transferPresenter= new TransferPresenter();
+        transferPresenter = new TransferPresenter();
         transferPresenter.getTransfer();
-        transferAdapter= new TransferAdapter(transferPresenter);
+        transferAdapter = new TransferAdapter(transferPresenter);
         recyclerView.setAdapter(transferAdapter);
-
 
 
     }
 
 
-
     @Override
     public void showTransfer() {
         recyclerView.getAdapter().notifyDataSetChanged();
-        TransferAdapter transferAdapter = (TransferAdapter) recyclerView.getAdapter();
-        Log.d("checkadapter",(transferAdapter==null)+" ");
         progressBar.setVisibility(View.INVISIBLE);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-       transferPresenter.attach(this);
+        transferPresenter.attach(this);
     }
 
     @Override

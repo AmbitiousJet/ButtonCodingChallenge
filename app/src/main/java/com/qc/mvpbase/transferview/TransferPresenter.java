@@ -4,7 +4,6 @@ import com.qc.mvpbase.model.TransferEntity;
 import com.qc.mvpbase.network.ButtonService;
 import com.qc.mvpbase.network.RetrofitInstance;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -18,22 +17,21 @@ import retrofit2.Response;
 
 public class TransferPresenter {
     private TransferContract.transferView transferView;
-    private List<TransferEntity> transferEntities= Collections.emptyList();
+    private List<TransferEntity> transferEntities = Collections.emptyList();
 
 
-
-    public void getTransfer(){
+    public void getTransfer() {
 
         RetrofitInstance retroFit = RetrofitInstance.getInstance();
         ButtonService buttonService = retroFit.getButtonService();
 
-        Call<List<TransferEntity>> getTransfer= buttonService.getDataFromTransfer("droidbutton");
+        Call<List<TransferEntity>> getTransfer = buttonService.getDataFromTransfer("droidbutton");
 
         getTransfer.enqueue(new Callback<List<TransferEntity>>() {
             @Override
             public void onResponse(Call<List<TransferEntity>> call, Response<List<TransferEntity>> response) {
-                transferEntities=response.body();
-               transferView.showTransfer();
+                transferEntities = response.body();
+                transferView.showTransfer();
             }
 
             @Override
@@ -45,12 +43,12 @@ public class TransferPresenter {
 
     }
 
-    public void onBindUserViewHolder(TrasferViewsSetup trasferViewsSetup, int position) {
+    public void onBindUserViewHolder(TransferViewsSetup transferViewsSetup, int position) {
         TransferEntity transferEntity = transferEntities.get(position);
-        trasferViewsSetup.setAmount(transferEntity.getAmount());
-        trasferViewsSetup.setCandidate(transferEntity.getCandidate());
-        trasferViewsSetup.setId(transferEntity.getId());
-        trasferViewsSetup.setUserId(transferEntity.getUser_id());
+        transferViewsSetup.setAmount(transferEntity.getAmount());
+        transferViewsSetup.setCandidate(transferEntity.getCandidate());
+        transferViewsSetup.setId(transferEntity.getId());
+        transferViewsSetup.setUserId(transferEntity.getUser_id());
 
 
     }
@@ -62,17 +60,19 @@ public class TransferPresenter {
     public void attach(TransferContract.transferView transferView) {
         this.transferView = transferView;
 
-
     }
 
     public void detach() {
         transferView = null;
     }
 
-    public interface TrasferViewsSetup {
+    public interface TransferViewsSetup {
         void setId(int id);
+
         void setAmount(String amount);
+
         void setCandidate(String candidate);
+
         void setUserId(int id);
     }
 }
